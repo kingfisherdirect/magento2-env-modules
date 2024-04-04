@@ -4,6 +4,9 @@
 
 ## Installation
 
+> [!CAUTION]
+> This is not yet fully tested under every circumstances. It works for me.
+
 ### Install patch source files
 
 ```sh
@@ -61,3 +64,9 @@ Every module installation requires `bin/magento setup:upgrade` that overrides `c
 Since composer allows to define `require` and `require-dev` packages, dev tools can be added to `require-dev` and only manually enabled through `env.php`. On production `require-dev` packages doesn't have to be installed, therefore nothing should be in `config.php`.
 
 On the other hand modules may be in `require` making it always installed. Because of modules `registration.php` file, it's automatically loaded and status will (and should) be written to `config.php`. Each environment may then use `env.php` to disable module.
+
+## Why not a PR to magento/magento2
+
+I don't believe this is ready to be shipped in Magento by default.
+
+This patch makes `module:enable` and `module:disable` ineffective for `env.php` defined modules. I needed a solution that works, not neccessary handles every scenario.
