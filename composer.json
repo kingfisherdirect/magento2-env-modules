@@ -1,0 +1,13 @@
+{
+    "name": "kingfisherdirect/magento2-env-modules",
+    "description": "Magento 2 Patch to allow module definition in env.php",
+    "type": "magento2-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kamil",
+            "email": "kamil@kingfisherdirect.co.uk"
+        }
+    ],
+    "require": {}
+}

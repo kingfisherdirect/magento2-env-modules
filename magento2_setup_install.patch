@@ -1,0 +1,15 @@
+--- a/vendor/magento/magento2-base/setup/src/Magento/Setup/Model/Installer.php
++++ b/vendor/magento/magento2-base/setup/src/Magento/Setup/Model/Installer.php
+@@ -470,6 +470,12 @@
+             }
+         }
+         if (!$dryRun) {
++            $envModules = $this->deploymentConfigReader->load(ConfigFilePool::APP_ENV)[ConfigOptionsListConstants::KEY_MODULES] ?? [];
++            $result = array_filter($result, function ($module) use ($envModules) {
++                return !array_key_exists($module, $envModules);
++            }, ARRAY_FILTER_USE_KEY);
++
++
+             $this->deploymentConfigWriter->saveConfig([ConfigFilePool::APP_CONFIG => ['modules' => $result]], true);
+         }
+         return $result;
