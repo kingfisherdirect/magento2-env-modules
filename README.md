@@ -34,26 +34,18 @@ In the `composer.json` under `extra.patches` add following
 Now run `composer install` which will do the patching.  
 For git users, after successfull installation you should have observe an untracked file in `git status` (`src/setup/src/Magento/Setup/Model/Installer.php`). This file should be commited.
 
-## Problem it solves
+## Problem and solution
 
 Pretty much explained in following discussions:
 
 - https://github.com/magento/magento2/issues/38016
 - https://magento.stackexchange.com/questions/369810/using-env-php-to-override-module-status-in-config-php
 
-At the moment Magento installation tracks module status in `config.php` file that's tracked in git repository.
+Magento installation saves module status in `config.php` file that should be tracked in git repository. This file is overwritten every time `bin/magento setup:upgrade` is run. Whether module status changed, new module is installed everything is overwritten in `config.php`.
 
-In some cases it's neccessary to enable certain modules in specific environments. (For example you may want debug modules for developers to work with locally, that are not desired on production. I've also heard people disabling 2FA locally for convinience).  
+By default Magento also reads `env.php` file for module statuses. However, because of mentioned overwrites to `config.php`, it's not convinient to use `env.php`.
 
-At the moment the most common scenario is that module developers are providing toggles to enable/disable module through magento configuration. This, may work but adds unnecessary overhead of still loading module, config options, running conditions etc.
-
-## Solution details
-
-By default Magento is also reading `env.php` file for module statuses. However, it's far from beeing convinient to use.  
-
-Every module installation requires `bin/magento setup:upgrade` that overrides `config.php` with latest status of all module.
-
-**This module** amends the default magento behaviour by excluding modules from beeing written to `config.php` if they're already in `env.php` during `setup:upgrade`
+**This module amends the default magento behaviour by excluding modules from beeing written to `config.php` if they're already in `env.php`.**
 
 > [!IMPORTANT]
 > Module status can be still changed in by `module:enable` or `module:disable` which will write to `config.php`.
