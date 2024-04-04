@@ -27,7 +27,7 @@ composer require cweagans/composer-patches
 In the `composer.json` under `extra.patches` add following
 ```
 "magento/magento2-base": {
-    "Skip config.php modules if defined in env.php": "patches/composer/mage_env_modules.diff"
+    "Skip config.php modules if defined in env.php": "vendor/kingfisherdirect/magento2-env-modules/magento2_setup_install.patch"
 }
 ```
 
